@@ -3,7 +3,7 @@
 
 #include "lrucache.h"
 
-unsigned long long int collatz(LRUCache* cache, unsigned long long int n)
+unsigned long long int collatz(unsigned long long int n)
 {
     unsigned count = 0;
     if (n <= 1) {return n;}
