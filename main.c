@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < num; i++)
     {
         unsigned long long int rn = min_num + rand() % (max_num - min_num);
-        steps = collatz(cache, rn);
+        steps = collatz(rn);
         put(cache, rn, steps);
         if (get(cache, rn) == -1) {
             cache_miss++;
