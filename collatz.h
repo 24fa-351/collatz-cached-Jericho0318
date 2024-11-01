@@ -3,18 +3,28 @@
 
 #include "lrucache.h"
 
-unsigned long long int collatz(unsigned long long int n)
-{
-    unsigned count = 0;
-    if (n <= 1) {return n;}
-    while (n != 1) {
-        if (n % 2 == 0)
-        {
-            n = n / 2;
+unsigned long long int collatz(LRUCache* cache, unsigned long long int num) {
+    if (num <= 1) {
+        return num;
+    }
+
+    unsigned long long int result = get(cache, num);
+    if (result != -1) {
+        return result;
+    }
+
+    unsigned long long int count = 0;
+    unsigned long long int original_num = num;
+
+    while (num != 1) {
+        if (num % 2 == 0) {
+            num = num / 2;
         } else {
-            n = (3 * n) + 1;
+            num = (3 * num) + 1;
         }
         count++;
     }
+
+    put(cache, original_num, count);
     return count;
 }

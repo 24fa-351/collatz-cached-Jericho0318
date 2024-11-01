@@ -15,6 +15,8 @@ typedef struct {
     Node* head;
     Node* tail;
     Node** hash;
+    unsigned long long hits;
+    unsigned long long accesses;
 } LRUCache;
 
 Node* createNode(int key, int val) {
@@ -35,6 +37,8 @@ LRUCache* createLRUCache(unsigned long long int capacity) {
     newcache->head->next = newcache->tail;
     newcache->tail->prev = newcache->head;
     newcache->hash = (Node**)calloc(10000000, sizeof(Node*));
+    newcache->hits = 0;
+    newcache->accesses = 0;
     return newcache;
 }
 
@@ -56,10 +60,12 @@ void moveToHead(LRUCache* cache, Node* node) {
 }
 
 unsigned long long int get(LRUCache* cache, int key) {
-    Node* newNode =  cache->hash[key];
+    cache->accesses++;
+    Node* newNode = cache->hash[key];
     if (newNode == NULL) {
         return -1;
     }
+    cache->hits++;
     moveToHead(cache, newNode);
     return newNode->val;
 }
@@ -70,7 +76,7 @@ void put(LRUCache* cache, int key, int value) {
         node->val = value;
         moveToHead(cache, node);
     } else {
-        if  (cache->size >= cache->capacity) {
+        if (cache->size >= cache->capacity) {
             Node* lru = cache->tail->prev;
             removeNode(cache, lru);
             cache->hash[lru->key] = NULL;
@@ -82,6 +88,13 @@ void put(LRUCache* cache, int key, int value) {
         cache->hash[key] = newNode;
         cache->size++;
     }
+}
+
+double getCacheHitRatio(LRUCache* cache) {
+    if (cache->accesses == 0) {
+        return 0.0;
+    }
+    return (double)cache->hits / cache->accesses;
 }
 
 void freeLRUCache(LRUCache* cache) {
