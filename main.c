@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     if (argc != 6)
     {
-        printf("./main <num of times> <min> <max> <LRU> <cache size>");
+        printf("./main <num of times> <min> <max> <LRU> <cache size>\n");
         return 1;
     }
     unsigned steps = 0, max_steps = 0;
@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         printf("Num should be between min and max\n");
         return 1;
     }
-    if (!strcmp(argv[4], "LRU")) {
+    if (!strcmp(argv[4], "lru")) {
         for (int i = 0; i < num; i++)
         {
             unsigned long long int rn = min_num + rand() % (max_num - min_num);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
         printf("Hits: %.2f%%\n", getCacheHitRatio(cache));
         freeLRUCache(cache);
     } else {
-        printf("./main <num of times> <min> <max> <LRU> <cache size>");
+        printf("./main <num of times> <min> <max> <LRU> <cache size>\n");
     }
     return 0;
 }
