@@ -1,5 +1,5 @@
-collatz: main.c lrucache.h collatz.h
-	gcc -o main collatz lrucache main.c collatz.h lrucache.h
+collatz: main.c
+	gcc -o main main.c
 	
 clean:
-	rm main lrucache collatz
+	rm main
