@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <stdint.h>
 
 typedef struct Node {
     int key;
@@ -28,7 +29,7 @@ Node* createNode(int key, int val) {
     return newNode;
 }
 
-LRUCache* createLRUCache(unsigned long long int capacity) {
+LRUCache* createLRUCache(uint64_t capacity) {
     LRUCache* newcache = (LRUCache*)malloc(sizeof(LRUCache));
     newcache->capacity = capacity;
     newcache->size = 0;
@@ -59,7 +60,7 @@ void moveToHead(LRUCache* cache, Node* node) {
     addNode(cache, node);
 }
 
-unsigned long long int get(LRUCache* cache, int key) {
+uint64_t get(LRUCache* cache, int key) {
     Node* newNode = cache->hash[key];
     if (newNode == NULL) {
         cache->misses++;

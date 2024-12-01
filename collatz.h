@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
 #include "lrucache.h"
 
-unsigned long long int collatz(LRUCache* cache, unsigned long long int num) {
+uint64_t collatz(LRUCache* cache, uint64_t num) {
     if (num <= 1) {
         return num;
     }
 
-    unsigned long long int result = get(cache, num);
+    uint64_t result = get(cache, num);
     if (result != -1) {
         return result;
     }
 
-    unsigned long long int count = 0;
-    unsigned long long int original_num = num;
+    uint64_t count = 0;
+    uint64_t original_num = num;
 
     while (num != 1) {
         if (num % 2 == 0) {
