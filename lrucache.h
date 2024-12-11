@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <limits.h>
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 typedef struct Node {
     int key;
@@ -83,7 +83,7 @@ void put(LRUCache* cache, int key, int value) {
             cache->hash[lru->key] = NULL;
             free(lru);
             cache->size--;
-            //printf("Capacity is full");
+            // printf("Capacity is full");
         }
         Node* newNode = createNode(key, value);
         addNode(cache, newNode);
@@ -93,9 +93,8 @@ void put(LRUCache* cache, int key, int value) {
 }
 
 double getCacheHitRatio(LRUCache* cache) {
-    if (cache->misses == 0) {
+    if (cache->misses == 0)
         return 0.0;
-    }
     return (cache->hits / (cache->hits + cache->misses)) * 100;
 }
 
